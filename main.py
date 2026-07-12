@@ -19,19 +19,33 @@ while True:
     elif choice == "2":
         print("Enter category: ")
         category = input()
+
         print("Enter amount: ")
         amount = int(input())
-        expense = {
-            "category": category,
-            "amount": amount
-        }
-        expenses.append(expense)
-        balance = balance - amount
+        if balance >= amount:
+            balance -= amount
+            expense = {
+                "category": category,
+                "amount": amount
+            }
+            expenses.append(expense)
+        else:
+            print("Not enough money")
 
     elif choice == "3":
-        print("Your expenses: ", end = "")
-        for n in expenses:
-            print(n)
+        n = 1
+        total_expenses = 0
+        if expenses == []:
+            print("No expenses yet.")
+        else:
+            print("Your expenses: ")
+            for expense in expenses:
+                print(f"{n}.")
+                print("Category :", expense["category"])
+                print("Amount :", expense["amount"])
+                n += 1
+                total_expenses += expense["amount"]
+            print(f"Total expenses :{total_expenses}")
 
     elif choice == "4":
         print("GoodBye")
