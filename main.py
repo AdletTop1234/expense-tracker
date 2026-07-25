@@ -3,6 +3,45 @@ expenses = [
 
 ]
 
+def print_balance(balance):
+    print("Your balance: ", end="")
+    print(balance)
+
+def add_expense(balance):
+    print("Enter category: ")
+    category = input()
+
+    print("Enter amount: ")
+    amount = int(input())
+
+    if balance >= amount:
+        balance -= amount
+        expense = {
+            "category": category,
+            "amount": amount
+        }
+        expenses.append(expense)
+        return balance
+    else:
+        print("Not enough money")
+        return balance
+
+def show_all_expenses():
+    n = 1
+    total_expenses = 0
+
+    if not expenses:
+        print("No expenses yet.")
+    else:
+        print("Your expenses: ")
+        for expense in expenses:
+            print(f"{n}.")
+            print("Category :", expense["category"])
+            print("Amount :", expense["amount"])
+            n += 1
+            total_expenses += expense["amount"]
+        print(f"Total expenses :{total_expenses}")
+
 while True:
     print("1.Show Balance")
     print("2.Add Expense")
@@ -12,49 +51,14 @@ while True:
 
     choice = input()
 
-    def enter_category(balance):
-        print("Enter category: ")
-        category = input()
-
-        print("Enter amount: ")
-        amount = int(input())
-        if balance >= amount:
-            balance -= amount
-            expense = {
-                "category": category,
-                "amount": amount
-            }
-            expenses.append(expense)
-        else:
-            print("Not enough money")
-
-    def show_all_expences(n, total_expenses):
-        if not expenses:
-            print("No expenses yet.")
-        else:
-            print("Your expenses: ")
-            for expense in expenses:
-                print(f"{n}.")
-                print("Category :", expense["category"])
-                print("Amount :", expense["amount"])
-                n += 1
-                total_expenses += expense["amount"]
-            print(f"Total expenses :{total_expenses}")
-
-    def print_balance():
-        print("Your balance: ", end="")
-        print(balance)
-
     if choice == "1":
-        print_balance()
+        print_balance(balance)
 
     elif choice == "2":
-        enter_category(balance)
+        balance = add_expense(balance)
 
     elif choice == "3":
-        n = 1
-        total_expenses = 0
-        show_all_expences(n, total_expenses)
+        show_all_expenses()
 
     elif choice == "4":
         print("GoodBye")
