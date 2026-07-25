@@ -12,11 +12,7 @@ while True:
 
     choice = input()
 
-    if choice == "1":
-        print("Your balance: ", end = "")
-        print(balance)
-
-    elif choice == "2":
+    def enter_category(balance):
         print("Enter category: ")
         category = input()
 
@@ -32,10 +28,8 @@ while True:
         else:
             print("Not enough money")
 
-    elif choice == "3":
-        n = 1
-        total_expenses = 0
-        if expenses == []:
+    def show_all_expences(n, total_expenses):
+        if not expenses:
             print("No expenses yet.")
         else:
             print("Your expenses: ")
@@ -46,6 +40,21 @@ while True:
                 n += 1
                 total_expenses += expense["amount"]
             print(f"Total expenses :{total_expenses}")
+
+    def print_balance():
+        print("Your balance: ", end="")
+        print(balance)
+
+    if choice == "1":
+        print_balance()
+
+    elif choice == "2":
+        enter_category(balance)
+
+    elif choice == "3":
+        n = 1
+        total_expenses = 0
+        show_all_expences(n, total_expenses)
 
     elif choice == "4":
         print("GoodBye")
