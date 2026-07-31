@@ -10,20 +10,35 @@ def print_balance(balance):
 def add_expense(balance):
     print("Enter category: ")
     category = input()
-
     print("Enter amount: ")
-    amount = int(input())
 
-    if balance >= amount:
-        balance -= amount
-        expense = {
-            "category": category,
-            "amount": amount
-        }
-        expenses.append(expense)
+    try:
+        amount = int(input())
+        if balance >= amount:
+            balance -= amount
+            expense = {
+                "category": category,
+                "amount": amount
+            }
+            expenses.append(expense)
+            return balance
+        else:
+            print("Not enough money")
+            return balance
+    except ValueError:
+        print("Incorrect input")
         return balance
-    else:
-        print("Not enough money")
+
+def replenish_balance(balance):
+    try:
+        print("Enter money :")
+        amount = int(input())
+        balance += amount
+
+        return balance
+    except ValueError:
+        print("Incorrect Input")
+
         return balance
 
 def show_all_expenses():
@@ -46,7 +61,8 @@ while True:
     print("1.Show Balance")
     print("2.Add Expense")
     print("3.Show All Expenses")
-    print("4.Exit")
+    print("4.Replenish balance")
+    print("5.Exit")
     print("Choose :")
 
     choice = input()
@@ -61,6 +77,9 @@ while True:
         show_all_expenses()
 
     elif choice == "4":
+        balance = replenish_balance(balance)
+
+    elif choice == "5":
         print("GoodBye")
         break
 
