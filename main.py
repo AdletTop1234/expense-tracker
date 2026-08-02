@@ -1,3 +1,5 @@
+from unicodedata import category
+
 balance = 6500
 expenses = [
 
@@ -29,7 +31,7 @@ def add_expense(balance):
         print("Incorrect input")
         return balance
 
-def replenish_balance(balance):
+def deposit_balance(balance):
     try:
         print("Enter money :")
         amount = int(input())
@@ -50,19 +52,34 @@ def show_all_expenses():
     else:
         print("Your expenses: ")
         for expense in expenses:
-            print(f"{n}.")
-            print("Category :", expense["category"])
-            print("Amount :", expense["amount"])
+            print(f"{n}.{expense['category']} - {expense['amount']}")
             n += 1
             total_expenses += expense["amount"]
         print(f"Total expenses :{total_expenses}")
+
+def delete_expense(balance):
+    try:
+        print("Enter index of expense")
+        n = int(input())
+        if 0 < n <= len(expenses):
+            deleted_expense = expenses.pop(n-1)
+            balance += deleted_expense['amount']
+            return balance
+        else:
+            print("Out of Range")
+            return balance
+
+    except ValueError:
+        print("Incorrect Input")
+        return balance
 
 while True:
     print("1.Show Balance")
     print("2.Add Expense")
     print("3.Show All Expenses")
-    print("4.Replenish balance")
-    print("5.Exit")
+    print("4.Deposit balance")
+    print("5.Delete expense")
+    print("6.Exit")
     print("Choose :")
 
     choice = input()
@@ -77,9 +94,12 @@ while True:
         show_all_expenses()
 
     elif choice == "4":
-        balance = replenish_balance(balance)
+        balance = deposit_balance(balance)
 
     elif choice == "5":
+        balance = delete_expense(balance)
+
+    elif choice == "6":
         print("GoodBye")
         break
 
