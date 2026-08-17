@@ -1,9 +1,21 @@
-from unicodedata import category
+import json
 
-balance = 6500
-expenses = [
+data = {
 
-]
+}
+
+with open("dictionary.json","r")as file:
+    data = json.load(file)
+
+balance = data["balance"]
+expenses = data["expenses"]
+
+def save_data(data,balance,expenses):
+    data["balance"] = balance
+    data["expenses"] = expenses
+
+    with open("dictionary.json","w")as file:
+        json.dump(data,file)
 
 def print_balance(balance):
     print("Your balance: ", end="")
@@ -23,6 +35,7 @@ def add_expense(balance):
                 "amount": amount
             }
             expenses.append(expense)
+            save_data(data, balance, expenses)
             return balance
         else:
             print("Not enough money")
@@ -36,7 +49,7 @@ def deposit_balance(balance):
         print("Enter money :")
         amount = int(input())
         balance += amount
-
+        save_data(data, balance, expenses)
         return balance
     except ValueError:
         print("Incorrect Input")
@@ -64,6 +77,7 @@ def delete_expense(balance):
         if 0 < n <= len(expenses):
             deleted_expense = expenses.pop(n-1)
             balance += deleted_expense['amount']
+            save_data(data, balance, expenses)
             return balance
         else:
             print("Out of Range")
